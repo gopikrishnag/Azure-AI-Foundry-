@@ -1,0 +1,1488 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Complete Agent Telemetry Report</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        h2 {
+            color: #667eea;
+            margin: 30px 0 15px 0;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+        .timestamp {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            border-radius: 15px;
+            color: white;
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        .trace-container {
+            margin-bottom: 30px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            border-left: 5px solid #667eea;
+        }
+        .trace-header {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .trace-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        .trace-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
+            font-size: 0.9em;
+            color: #666;
+        }
+        .section {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        .section-title {
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        .data-grid {
+            display: grid;
+            gap: 8px;
+        }
+        .data-row {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 15px;
+            padding: 8px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+        .data-key {
+            font-weight: 600;
+            color: #555;
+        }
+        .data-value {
+            color: #333;
+            word-break: break-word;
+        }
+        .conversation {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-left: 4px solid #2196f3;
+        }
+        .message {
+            margin-bottom: 10px;
+        }
+        .role {
+            font-weight: bold;
+            color: #1976d2;
+            display: inline-block;
+            min-width: 80px;
+        }
+        .tool-call {
+            background: #fff3e0;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 5px 0;
+            border-left: 4px solid #ff9800;
+        }
+        .tool-result {
+            background: #e8f5e9;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 5px 0;
+            border-left: 4px solid #4caf50;
+        }
+        pre {
+            background: #263238;
+            color: #aed581;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+        .highlight {
+            background: #fff59d;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-right: 5px;
+        }
+        .badge-success { background: #4caf50; color: white; }
+        .badge-info { background: #2196f3; color: white; }
+        .badge-warning { background: #ff9800; color: white; }
+        .chart-container {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Complete Agent Telemetry Report</h1>
+        <div class="timestamp">Generated: 2025-11-06 13:52:58</div>
+        
+        
+        <h2>📊 Summary Statistics</h2>
+        <div class="summary">
+            <div class="stat-card">
+                <div class="stat-label">Total Operations</div>
+                <div class="stat-value">8</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Agent Invocations</div>
+                <div class="stat-value">3</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">AI Model Calls</div>
+                <div class="stat-value">4</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Tool Executions</div>
+                <div class="stat-value">1</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Total Tokens</div>
+                <div class="stat-value">1,486</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Total Duration</div>
+                <div class="stat-value">12491ms</div>
+            </div>
+        </div>
+        
+        <h2>🔬 Detailed Traces (Everything Captured)</h2>
+            <div class="trace-container">
+                <div class="trace-header">
+                    <div class="trace-title">
+                        1. chat gpt-4.1
+                        <span class="badge badge-success">UNSET</span>
+                        <span class="badge badge-info">1674.93ms</span>
+                    </div>
+                    <div class="trace-meta">
+                        <div>🆔 Trace: <code>eaa9d5afc0397c1f1ae3d47964dd35b1</code></div>
+                        <div>🔗 Span: <code>138a1908d9a7a0cf</code></div>
+                        <div>⏱️ Start: 2025-11-06T13:52:23.287128</div>
+                        <div>🏁 End: 2025-11-06T13:52:24.962061</div>
+                    </div>
+                </div>
+            
+        <div class="section">
+            <div class="section-title">📥 Input Messages</div>
+        
+                    <div class="conversation">
+                        <div class="message">
+                            <span class="role">USER:</span> weather in london
+                        </div>
+                    </div>
+                    </div>
+        <div class="section">
+            <div class="section-title">📤 Output Messages</div>
+        
+                    <div class="tool-call">
+                        <strong>🔧 Tool Call:</strong> get_weather<br>
+                        <strong>Arguments:</strong> <code>{"city":"London"}</code><br>
+                        <strong>ID:</strong> <code>call_zv9MK6wb8Yca8UxyZntDr2Ca</code>
+                    </div>
+                    </div>
+                <div class="section">
+                    <div class="section-title">💰 Token Usage</div>
+                    <div class="data-grid">
+                        <div class="data-row">
+                            <div class="data-key">Input Tokens</div>
+                            <div class="data-value"><span class="highlight">109</span></div>
+                        </div>
+                        <div class="data-row">
+                            <div class="data-key">Output Tokens</div>
+                            <div class="data-value"><span class="highlight">15</span></div>
+                        </div>
+                        <div class="data-row">
+                            <div class="data-key">Total</div>
+                            <div class="data-value"><span class="highlight">124</span></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">🤖 Model Information</div>
+                    <div class="data-grid">
+                        <div class="data-row">
+                            <div class="data-key">Model</div>
+                            <div class="data-value">gpt-4.1-2025-04-14</div>
+                        </div>
+                        <div class="data-row">
+                            <div class="data-key">Provider</div>
+                            <div class="data-value">azure.ai.openai</div>
+                        </div>
+                        <div class="data-row">
+                            <div class="data-key">Response ID</div>
+                            <div class="data-value"><code>chatcmpl-CYuhUV32AfvIBWCaXP5np683yo68z</code></div>
+                        </div>
+                        <div class="data-row">
+                            <div class="data-key">Finish Reason</div>
+                            <div class="data-value">['tool_calls']</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">📋 Additional Attributes</div>
+                    <div class="data-grid">
+                
+                        <div class="data-row">
+                            <div class="data-key">gen_ai.operation.name</div>
+                            <div class="data-value">chat</div>
+                        </div>
+                    
+                        <div class="data-row">
+                            <div class="data-key">gen_ai.request.choice.count</div>
+                            <div class="data-value">1</div>
+                        </div>
+                    
+                        <div class="data-row">
+                            <div class="data-key">gen_ai.request.model</div>
+                            <div class="data-value">gpt-4.1</div>
+                        </div>
+                    
+                        <div class="data-row">
+                            <div class="data-key">server.address</div>
+                            <div class="data-value">https://ai-foundry-learnings-resource.cognitiveservices.azure.com/openai/deployments/gpt-4.1/chat/co...</div>
+                        </div>
+                    
+                        <div class="data-row">
+                            <div class="data-key">gen_ai.tool.definitions</div>
+                            <div class="data-value"><pre>[
+  {
+    "type": "function",
+    "function": {
+      "name": "get_weather",
+      "description": "Get weather for a city.",
+      "parameters": {
+        "properties": {
+          "city": {
+            "title": "City",
+            "type": "string"
+          }
+        },
+        "required": [
+          "city"
+        ],
+        "title": "get_weather_input",
+        "type": "object"
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "calculate",
+      "description": "Calculate a math expression.",
+      "parameters": {
+        "properties": {
+          "expression": {
+            "title": "Expression",
+            "type": "string"
+          }
+        },
+        "required": [
+          "expression"
+        ],
+        "title": "calculate_input",
+        "type": "object"
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "search",
+      "description": "Search a database.",
+      "parameters": {
+        "properties": {
+          "query": {
+            "title": "Query",
+            "type": "string"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "title": "search_input",
+        "type": "object"
+      }
+    }
+  }
+]</pre></div>
+                        </div>
+                    
+                        <div class="data-row">
+                            <div class="data-key">gen_ai.client.operation.duration</div>
+                            <div class="data-value">1.6740300999954343</div>
+                        </div>
+                    
+                    </div>
+                </div>
+                </div>
+            <div class="trace-container">
+                <div class="trace-header">
+                    <div class="trace-title">
+                        2. execute_tool get_weather
+                        <span class="badge badge-success">UNSET</span>
+                        <span class="badge badge-info">0.11ms</span>
+                    </div>
+                    <div class="trace-meta">
+                        <div>🆔 Trace: <code>eaa9d5afc0397c1f1ae3d47964dd35b1</code></div>
+                        <div>🔗 Span: <code>5db0e99e732b7409</code></div>
+                        <div>⏱️ Start: 2025-11-06T13:52:24.962378</div>
+                        <div>🏁 End: 2025-11-06T13:52:24.962492</div>
+                    </div>
+                </div>
+            
+                <div class="section">
+                    <div class="section-title">🔧 Tool Execution</div>
+                    <div class="tool-call">
+                        <strong>Function:</strong> get_weather<br>
+                        <strong>Arguments:</strong> <code>{'city': 'London'}</code>
+                    </div>
+                    <div class="tool-result">
+                        <strong>Result:</strong> "Weather in London: 22\u00b0C, Sunny"
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">📋 Additional Attributes</div>
+                    <div class="data-grid">
+                
+                        <div class="data-row">
+                            <div class="data-key">gen_ai.operation.name</div>
+                            <div class="data-value">execute_tool</div>
+                        </div>
+                    
+                        <div class="data-row">
+                            <div class="data-key">gen_ai.tool.call.id</div>
+                            <div class="data-value">call_zv9MK6wb8Yca8UxyZntDr2Ca</div>
+                        </div>
+                    
+                        <div class="data-row">
+                            <div class="data-key">gen_ai.tool.type</div>
+                            <div class="data-value">function</div>
+                        </div>
+                    
+                        <div class="data-row">
+                            <div class="data-key">gen_ai.tool.description</div>
+                            <div class="data-value">Get weather for a city.</div>
+                        </div>
+                    
+                        <div class="data-row">
+                            <div class="data-key">agent_framework.function.invocation.duration</div>
+                            <div class="data-value">2.2900057956576347e-05</div>
+                        </div>
+                    
+                    </div>
+                </div>
+                </div>
+            <div class="trace-container">
+                <div class="trace-header">
+                    <div class="trace-title">
+                        3. chat gpt-4.1
+                        <span class="badge badge-success">UNSET</span>
+                        <span class="badge badge-info">806.99ms</span>
+                    </div>
+                    <div class="trace-meta">
+                        <div>🆔 Trace: <code>eaa9d5afc0397c1f1ae3d47964dd35b1</code></div>
+                        <div>🔗 Span: <code>45c738bb4eaf635c</code></div>
+                        <div>⏱️ Start: 2025-11-06T13:52:24.963459</div>
+                        <div>🏁 End: 2025-11-06T13:52:25.770450</div>
+                    </div>
+                </div>
+            
+        <div class="section">
+            <div class="section-title">📥 Input Messages</div>
+        
+                    <div class="conversation">
+                        <div class="message">
+                            <span class="role">USER:</span> weather in london
+                        </div>
+                    </div>
+                    
+                    <div class="tool-call">
+                        <strong>🔧 Tool Call:</strong> get_weather<br>
+                        <strong>Arguments:</strong> <code>{"city":"London"}</code><br>
+                        <strong>ID:</strong> <code>call_zv9MK6wb8Yca8UxyZntDr2Ca</code>
+                    </div>
+                    </div>
+        <div class="section">
+            <div class="section-title">📤 Output Messages</div>
+        
+                    <div class="conversation">
+                        <div class="message">
+                            <span class="role">ASSISTANT:</span> The weather in London is currently 22°C and sunny.
+                        </div>
+                    </div>
+                    </div>
+                <div class="section">
+                    <div class="section-title">💰 Token Usage</div>
+                    <div class="data-grid">
+                        <div class="data-row">
+                            <div class="data-key">Input Tokens</div>
+                            <div class="data-value"><span class="highlight">140</span></div>
+                        </div>
+                        <div class="data-row">
+                            <div class="data-key">Output Tokens</div>
+                            <div class="data-value"><span class="highlight">14</span></div>
+                        </div>
+                        <div class="data-row">
+                            <div class="data-key">Total</div>
+                            <div class="data-value"><span class="highlight">154</span></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">🤖 Model Information</div>
+                    <div class="data-grid">
+                        <div class="data-row">
+                            <div class="data-key">Model</div>
+                            <div class="data-value">gpt-4.1-2025-04-14</div>
+                        </div>
+                        <div class="data-row">
+                            <div class="data-key">Provider</div>
+                            <div class="data-value">azure.ai.openai</div>
+                        </div>
+                        <div class="data-row">
+                            <div class="data-key">Response ID</div>
+                            <div class="data-value"><code>chatcmpl-CYuhV93E5J3ZyLkW148czD2d6yEtH</code></div>
+                        </div>
+                        <div class="data-row">
+                            <div class="data-key">Finish Reason</div>
+                            <div class="data-value">['stop']</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">📋 Additional Attributes</div>
+                    <div class="data-grid">
+                
+                        <div class="data-row">
+                            <div class="data-key">gen_ai.operation.name</div>
+                            <div class="data-value">chat</div>
+                        </div>
+                    
+                        <div class="data-row">
+                            <div class="data-key">gen_ai.request.choice.count</div>
+                            <div class="data-value">1</div>
+                        </div>
+                    
+                        <div class="data-row">
+                            <div class="data-key">gen_ai.request.model</div>
+                            <div class="data-value">gpt-4.1</div>
+                        </div>
+                    
+                        <div class="data-row">
+                            <div class="data-key">server.address</div>
+                            <div class="data-value">https://ai-foundry-learnings-resource.cognitiveservices.azure.com/openai/deployments/gpt-4.1/chat/co...</div>
+                        </div>
+                    
+                        <div class="data-row">
+                            <div class="data-key">gen_ai.tool.definitions</div>
+                            <div class="data-value"><pre>[
+  {
+    "type": "function",
+    "function": {
+      "name": "get_weather",
+      "description": "Get weather for a city.",
+      "parameters": {
+        "properties": {
+          "city": {
+            "title": "City",
+            "type": "string"
+          }
+        },
+        "required": [
+          "city"
+        ],
+        "title": "get_weather_input",
+        "type": "object"
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "calculate",
+      "description": "Calculate a math expression.",
+      "parameters": {
+        "properties": {
+          "expression": {
+            "title": "Expression",
+            "type": "string"
+          }
+        },
+        "required": [
+          "expression"
+        ],
+        "title": "calculate_input",
+        "type": "object"
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "search",
+      "description": "Search a database.",
+      "parameters": {
+        "properties": {
+          "query": {
+            "title": "Query",
+            "type": "string"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "title": "search_input",
+        "type": "object"
+      }
+    }
+  }
+]</pre></div>
+                        </div>
+                    
+                        <div class="data-row">
+                            <div class="data-key">gen_ai.client.operation.duration</div>
+                            <div class="data-value">0.8065087001305073</div>
+                        </div>
+                    
+                    </div>
+                </div>
+                </div>
+            <div class="trace-container">
+                <div class="trace-header">
+                    <div class="trace-title">
+                        4. invoke_agent b6173187-d754-467c-9966-35c7b0e72420
+                        <span class="badge badge-success">UNSET</span>
+                        <span class="badge badge-info">2485.24ms</span>
+                    </div>
+                    <div class="trace-meta">
+                        <div>🆔 Trace: <code>eaa9d5afc0397c1f1ae3d47964dd35b1</code></div>
+                        <div>🔗 Span: <code>0d5796496ab049a3</code></div>
+                        <div>⏱️ Start: 2025-11-06T13:52:23.285657</div>
+                        <div>🏁 End: 2025-11-06T13:52:25.770902</div>
+                    </div>
+                </div>
+            
+        <div class="section">
+            <div class="section-title">📥 Input Messages</div>
+        
+                    <div class="conversation">
+                        <div class="message">
+                            <span class="role">USER:</span> weather in london
+                        </div>
+                    </div>
+                    </div>
+        <div class="section">
+            <div class="section-title">📤 Output Messages</div>
+        
+                    <div class="tool-call">
+                        <strong>🔧 Tool Call:</strong> get_weather<br>
+                        <strong>Arguments:</strong> <code>{"city":"London"}</code><br>
+                        <strong>ID:</strong> <code>call_zv9MK6wb8Yca8UxyZntDr2Ca</code>
+                    </div>
+                    
+                    <div class="conversation">
+                        <div class="message">
+                            <span class="role">ASSISTANT:</span> The weather in London is currently 22°C and sunny.
+                        </div>
+                    </div>
+                    </div>
+                <div class="section">
+                    <div class="section-title">💰 Token Usage</div>
+                    <div class="data-grid">
+                        <div class="data-row">
+                            <div class="data-key">Input Tokens</div>
+                            <div class="data-value"><span class="highlight">249</span></div>
+                        </div>
+                        <div class="data-row">
+                            <div class="data-key">Output Tokens</div>
+                            <div class="data-value"><span class="highlight">29</span></div>
+                        </div>
+                        <div class="data-row">
+                            <div class="data-key">Total</div>
+                            <div class="data-value"><span class="highlight">278</span></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">📋 Additional Attributes</div>
+                    <div class="data-grid">
+                
+                        <div class="data-row">
+                            <div class="data-key">gen_ai.operation.name</div>
+                            <div class="data-value">invoke_agent</div>
+                        </div>
+                    
+                        <div class="data-row">
+                            <div class="data-key">gen_ai.request.choice.count</div>
+                            <div class="data-value">1</div>
+                        </div>
+                    
+                        <div class="data-row">
+                            <div class="data-key">gen_ai.request.model</div>
+                            <div class="data-value">unknown</div>
+                        </div>
+                    
+                        <div class="data-row">
+                            <div class="data-key">gen_ai.tool.definitions</div>
+                            <div class="data-value"><pre>[
+  {
+    "type": "function",
+    "function": {
+      "name": "get_weather",
+      "description": "Get weather for a city.",
+      "parameters": {
+        "properties": {
+          "city": {
+            "title": "City",
+            "type": "string"
+          }
+        },
+        "required": [
+          "city"
+        ],
+        "title": "get_weather_input",
+        "type": "object"
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "calculate",
+      "description": "Calculate a math expression.",
+      "parameters": {
+        "properties": {
+          "expression": {
+            "title": "Expression",
+            "type": "string"
+          }
+        },
+        "required": [
+          "expression"
+        ],
+        "title": "calculate_input",
+        "type": "object"
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "search",
+      "description": "Search a database.",
+      "parameters": {
+        "properties": {
+          "query": {
+            "title": "Query",
+            "type": "string"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "title": "search_input",
+        "type": "object"
+      }
+    }
+  }
+]</pre></div>
+                        </div>
+                    
+                        <div class="data-row">
+                            <div class="data-key">gen_ai.agent.id</div>
+                            <div class="data-value">b6173187-d754-467c-9966-35c7b0e72420</div>
+                        </div>
+                    
+                        <div class="data-row">
+                            <div class="data-key">gen_ai.agent.name</div>
+                            <div class="data-value">b6173187-d754-467c-9966-35c7b0e72420</div>
+                        </div>
+                    
+                    </div>
+                </div>
+                </div>
+            <div class="trace-container">
+                <div class="trace-header">
+                    <div class="trace-title">
+                        5. chat gpt-4.1
+                        <span class="badge badge-success">UNSET</span>
+                        <span class="badge badge-info">1504.57ms</span>
+                    </div>
+                    <div class="trace-meta">
+                        <div>🆔 Trace: <code>7263acbfd50e0e778ace7490f8e80885</code></div>
+                        <div>🔗 Span: <code>55f0537c4d2b73b0</code></div>
+                        <div>⏱️ Start: 2025-11-06T13:52:47.452700</div>
+                        <div>🏁 End: 2025-11-06T13:52:48.957268</div>
+                    </div>
+                </div>
+            
+        <div class="section">
+            <div class="section-title">📥 Input Messages</div>
+        
+                    <div class="conversation">
+                        <div class="message">
+                            <span class="role">USER:</span> weather in london
+                        </div>
+                    </div>
+                    
+                    <div class="tool-call">
+                        <strong>🔧 Tool Call:</strong> get_weather<br>
+                        <strong>Arguments:</strong> <code>{"city":"London"}</code><br>
+                        <strong>ID:</strong> <code>call_zv9MK6wb8Yca8UxyZntDr2Ca</code>
+                    </div>
+                    
+                    <div class="conversation">
+                        <div class="message">
+                            <span class="role">ASSISTANT:</span> The weather in London is currently 22°C and sunny.
+                        </div>
+                    </div>
+                    
+                    <div class="conversation">
+                        <div class="message">
+                            <span class="role">USER:</span> M
+                        </div>
+                    </div>
+                    </div>
+        <div class="section">
+            <div class="section-title">📤 Output Messages</div>
+        
+                    <div class="conversation">
+                        <div class="message">
+                            <span class="role">ASSISTANT:</span> It looks like your message was just “M.” Could you please clarify or provide more details so I can assist you?
+                        </div>
+                    </div>
+                    </div>
+                <div class="section">
+                    <div class="section-title">💰 Token Usage</div>
+                    <div class="data-grid">
+                        <div class="data-row">
+                            <div class="data-key">Input Tokens</div>
+                            <div class="data-value"><span class="highlight">161</span></div>
+                        </div>
+                        <div class="data-row">
+                            <div class="data-key">Output Tokens</div>
+                            <div class="data-value"><span class="highlight">26</span></div>
+                        </div>
+                        <div class="data-row">
+                            <div class="data-key">Total</div>
+                            <div class="data-value"><span class="highlight">187</span></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">🤖 Model Information</div>
+                    <div class="data-grid">
+                        <div class="data-row">
+                            <div class="data-key">Model</div>
+                            <div class="data-value">gpt-4.1-2025-04-14</div>
+                        </div>
+                        <div class="data-row">
+                            <div class="data-key">Provider</div>
+                            <div class="data-value">azure.ai.openai</div>
+                        </div>
+                        <div class="data-row">
+                            <div class="data-key">Response ID</div>
+                            <div class="data-value"><code>chatcmpl-CYuhrRgQfRCVyQ9PqI5E4TTRlMYp6</code></div>
+                        </div>
+                        <div class="data-row">
+                            <div class="data-key">Finish Reason</div>
+                            <div class="data-value">['stop']</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">📋 Additional Attributes</div>
+                    <div class="data-grid">
+                
+                        <div class="data-row">
+                            <div class="data-key">gen_ai.operation.name</div>
+                            <div class="data-value">chat</div>
+                        </div>
+                    
+                        <div class="data-row">
+                            <div class="data-key">gen_ai.request.choice.count</div>
+                            <div class="data-value">1</div>
+                        </div>
+                    
+                        <div class="data-row">
+                            <div class="data-key">gen_ai.request.model</div>
+                            <div class="data-value">gpt-4.1</div>
+                        </div>
+                    
+                        <div class="data-row">
+                            <div class="data-key">server.address</div>
+                            <div class="data-value">https://ai-foundry-learnings-resource.cognitiveservices.azure.com/openai/deployments/gpt-4.1/chat/co...</div>
+                        </div>
+                    
+                        <div class="data-row">
+                            <div class="data-key">gen_ai.tool.definitions</div>
+                            <div class="data-value"><pre>[
+  {
+    "type": "function",
+    "function": {
+      "name": "get_weather",
+      "description": "Get weather for a city.",
+      "parameters": {
+        "properties": {
+          "city": {
+            "title": "City",
+            "type": "string"
+          }
+        },
+        "required": [
+          "city"
+        ],
+        "title": "get_weather_input",
+        "type": "object"
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "calculate",
+      "description": "Calculate a math expression.",
+      "parameters": {
+        "properties": {
+          "expression": {
+            "title": "Expression",
+            "type": "string"
+          }
+        },
+        "required": [
+          "expression"
+        ],
+        "title": "calculate_input",
+        "type": "object"
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "search",
+      "description": "Search a database.",
+      "parameters": {
+        "properties": {
+          "query": {
+            "title": "Query",
+            "type": "string"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "title": "search_input",
+        "type": "object"
+      }
+    }
+  }
+]</pre></div>
+                        </div>
+                    
+                        <div class="data-row">
+                            <div class="data-key">gen_ai.client.operation.duration</div>
+                            <div class="data-value">1.503749400144443</div>
+                        </div>
+                    
+                    </div>
+                </div>
+                </div>
+            <div class="trace-container">
+                <div class="trace-header">
+                    <div class="trace-title">
+                        6. invoke_agent b6173187-d754-467c-9966-35c7b0e72420
+                        <span class="badge badge-success">UNSET</span>
+                        <span class="badge badge-info">1506.05ms</span>
+                    </div>
+                    <div class="trace-meta">
+                        <div>🆔 Trace: <code>7263acbfd50e0e778ace7490f8e80885</code></div>
+                        <div>🔗 Span: <code>72851b2cbd831e69</code></div>
+                        <div>⏱️ Start: 2025-11-06T13:52:47.451660</div>
+                        <div>🏁 End: 2025-11-06T13:52:48.957706</div>
+                    </div>
+                </div>
+            
+        <div class="section">
+            <div class="section-title">📥 Input Messages</div>
+        
+                    <div class="conversation">
+                        <div class="message">
+                            <span class="role">USER:</span> M
+                        </div>
+                    </div>
+                    </div>
+        <div class="section">
+            <div class="section-title">📤 Output Messages</div>
+        
+                    <div class="conversation">
+                        <div class="message">
+                            <span class="role">ASSISTANT:</span> It looks like your message was just “M.” Could you please clarify or provide more details so I can assist you?
+                        </div>
+                    </div>
+                    </div>
+                <div class="section">
+                    <div class="section-title">💰 Token Usage</div>
+                    <div class="data-grid">
+                        <div class="data-row">
+                            <div class="data-key">Input Tokens</div>
+                            <div class="data-value"><span class="highlight">161</span></div>
+                        </div>
+                        <div class="data-row">
+                            <div class="data-key">Output Tokens</div>
+                            <div class="data-value"><span class="highlight">26</span></div>
+                        </div>
+                        <div class="data-row">
+                            <div class="data-key">Total</div>
+                            <div class="data-value"><span class="highlight">187</span></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">📋 Additional Attributes</div>
+                    <div class="data-grid">
+                
+                        <div class="data-row">
+                            <div class="data-key">gen_ai.operation.name</div>
+                            <div class="data-value">invoke_agent</div>
+                        </div>
+                    
+                        <div class="data-row">
+                            <div class="data-key">gen_ai.request.choice.count</div>
+                            <div class="data-value">1</div>
+                        </div>
+                    
+                        <div class="data-row">
+                            <div class="data-key">gen_ai.request.model</div>
+                            <div class="data-value">unknown</div>
+                        </div>
+                    
+                        <div class="data-row">
+                            <div class="data-key">gen_ai.tool.definitions</div>
+                            <div class="data-value"><pre>[
+  {
+    "type": "function",
+    "function": {
+      "name": "get_weather",
+      "description": "Get weather for a city.",
+      "parameters": {
+        "properties": {
+          "city": {
+            "title": "City",
+            "type": "string"
+          }
+        },
+        "required": [
+          "city"
+        ],
+        "title": "get_weather_input",
+        "type": "object"
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "calculate",
+      "description": "Calculate a math expression.",
+      "parameters": {
+        "properties": {
+          "expression": {
+            "title": "Expression",
+            "type": "string"
+          }
+        },
+        "required": [
+          "expression"
+        ],
+        "title": "calculate_input",
+        "type": "object"
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "search",
+      "description": "Search a database.",
+      "parameters": {
+        "properties": {
+          "query": {
+            "title": "Query",
+            "type": "string"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "title": "search_input",
+        "type": "object"
+      }
+    }
+  }
+]</pre></div>
+                        </div>
+                    
+                        <div class="data-row">
+                            <div class="data-key">gen_ai.agent.id</div>
+                            <div class="data-value">b6173187-d754-467c-9966-35c7b0e72420</div>
+                        </div>
+                    
+                        <div class="data-row">
+                            <div class="data-key">gen_ai.agent.name</div>
+                            <div class="data-value">b6173187-d754-467c-9966-35c7b0e72420</div>
+                        </div>
+                    
+                    </div>
+                </div>
+                </div>
+            <div class="trace-container">
+                <div class="trace-header">
+                    <div class="trace-title">
+                        7. chat gpt-4.1
+                        <span class="badge badge-success">UNSET</span>
+                        <span class="badge badge-info">2255.49ms</span>
+                    </div>
+                    <div class="trace-meta">
+                        <div>🆔 Trace: <code>fdcd0e43a4872de8178a70f3f81731e6</code></div>
+                        <div>🔗 Span: <code>861b231162b5133a</code></div>
+                        <div>⏱️ Start: 2025-11-06T13:52:54.141772</div>
+                        <div>🏁 End: 2025-11-06T13:52:56.397264</div>
+                    </div>
+                </div>
+            
+        <div class="section">
+            <div class="section-title">📥 Input Messages</div>
+        
+                    <div class="conversation">
+                        <div class="message">
+                            <span class="role">USER:</span> weather in london
+                        </div>
+                    </div>
+                    
+                    <div class="tool-call">
+                        <strong>🔧 Tool Call:</strong> get_weather<br>
+                        <strong>Arguments:</strong> <code>{"city":"London"}</code><br>
+                        <strong>ID:</strong> <code>call_zv9MK6wb8Yca8UxyZntDr2Ca</code>
+                    </div>
+                    
+                    <div class="conversation">
+                        <div class="message">
+                            <span class="role">ASSISTANT:</span> The weather in London is currently 22°C and sunny.
+                        </div>
+                    </div>
+                    
+                    <div class="conversation">
+                        <div class="message">
+                            <span class="role">USER:</span> M
+                        </div>
+                    </div>
+                    
+                    <div class="conversation">
+                        <div class="message">
+                            <span class="role">ASSISTANT:</span> It looks like your message was just “M.” Could you please clarify or provide more details so I can assist you?
+                        </div>
+                    </div>
+                    
+                    <div class="conversation">
+                        <div class="message">
+                            <span class="role">USER:</span> Mayexit
+                        </div>
+                    </div>
+                    </div>
+        <div class="section">
+            <div class="section-title">📤 Output Messages</div>
+        
+                    <div class="conversation">
+                        <div class="message">
+                            <span class="role">ASSISTANT:</span> It seems like you're referring to "Mayexit." Could you clarify what you mean? Are you asking about:
+
+- A possible exit by Theresa May (the former UK Prime Minister) from office (sometimes called "Mayxit" or "Mayexit")?
+- A different “Mayexit” in another context (like an event or organization)?
+
+Please provide a little more detail so I can help you better!
+                        </div>
+                    </div>
+                    </div>
+                <div class="section">
+                    <div class="section-title">💰 Token Usage</div>
+                    <div class="data-grid">
+                        <div class="data-row">
+                            <div class="data-key">Input Tokens</div>
+                            <div class="data-value"><span class="highlight">195</span></div>
+                        </div>
+                        <div class="data-row">
+                            <div class="data-key">Output Tokens</div>
+                            <div class="data-value"><span class="highlight">83</span></div>
+                        </div>
+                        <div class="data-row">
+                            <div class="data-key">Total</div>
+                            <div class="data-value"><span class="highlight">278</span></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">🤖 Model Information</div>
+                    <div class="data-grid">
+                        <div class="data-row">
+                            <div class="data-key">Model</div>
+                            <div class="data-value">gpt-4.1-2025-04-14</div>
+                        </div>
+                        <div class="data-row">
+                            <div class="data-key">Provider</div>
+                            <div class="data-value">azure.ai.openai</div>
+                        </div>
+                        <div class="data-row">
+                            <div class="data-key">Response ID</div>
+                            <div class="data-value"><code>chatcmpl-CYuhyT0dxPGkQ32lI1BhQ71miHtmn</code></div>
+                        </div>
+                        <div class="data-row">
+                            <div class="data-key">Finish Reason</div>
+                            <div class="data-value">['stop']</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">📋 Additional Attributes</div>
+                    <div class="data-grid">
+                
+                        <div class="data-row">
+                            <div class="data-key">gen_ai.operation.name</div>
+                            <div class="data-value">chat</div>
+                        </div>
+                    
+                        <div class="data-row">
+                            <div class="data-key">gen_ai.request.choice.count</div>
+                            <div class="data-value">1</div>
+                        </div>
+                    
+                        <div class="data-row">
+                            <div class="data-key">gen_ai.request.model</div>
+                            <div class="data-value">gpt-4.1</div>
+                        </div>
+                    
+                        <div class="data-row">
+                            <div class="data-key">server.address</div>
+                            <div class="data-value">https://ai-foundry-learnings-resource.cognitiveservices.azure.com/openai/deployments/gpt-4.1/chat/co...</div>
+                        </div>
+                    
+                        <div class="data-row">
+                            <div class="data-key">gen_ai.tool.definitions</div>
+                            <div class="data-value"><pre>[
+  {
+    "type": "function",
+    "function": {
+      "name": "get_weather",
+      "description": "Get weather for a city.",
+      "parameters": {
+        "properties": {
+          "city": {
+            "title": "City",
+            "type": "string"
+          }
+        },
+        "required": [
+          "city"
+        ],
+        "title": "get_weather_input",
+        "type": "object"
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "calculate",
+      "description": "Calculate a math expression.",
+      "parameters": {
+        "properties": {
+          "expression": {
+            "title": "Expression",
+            "type": "string"
+          }
+        },
+        "required": [
+          "expression"
+        ],
+        "title": "calculate_input",
+        "type": "object"
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "search",
+      "description": "Search a database.",
+      "parameters": {
+        "properties": {
+          "query": {
+            "title": "Query",
+            "type": "string"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "title": "search_input",
+        "type": "object"
+      }
+    }
+  }
+]</pre></div>
+                        </div>
+                    
+                        <div class="data-row">
+                            <div class="data-key">gen_ai.client.operation.duration</div>
+                            <div class="data-value">2.2545322000514716</div>
+                        </div>
+                    
+                    </div>
+                </div>
+                </div>
+            <div class="trace-container">
+                <div class="trace-header">
+                    <div class="trace-title">
+                        8. invoke_agent b6173187-d754-467c-9966-35c7b0e72420
+                        <span class="badge badge-success">UNSET</span>
+                        <span class="badge badge-info">2257.18ms</span>
+                    </div>
+                    <div class="trace-meta">
+                        <div>🆔 Trace: <code>fdcd0e43a4872de8178a70f3f81731e6</code></div>
+                        <div>🔗 Span: <code>6c0f9978627ad474</code></div>
+                        <div>⏱️ Start: 2025-11-06T13:52:54.140644</div>
+                        <div>🏁 End: 2025-11-06T13:52:56.397828</div>
+                    </div>
+                </div>
+            
+        <div class="section">
+            <div class="section-title">📥 Input Messages</div>
+        
+                    <div class="conversation">
+                        <div class="message">
+                            <span class="role">USER:</span> Mayexit
+                        </div>
+                    </div>
+                    </div>
+        <div class="section">
+            <div class="section-title">📤 Output Messages</div>
+        
+                    <div class="conversation">
+                        <div class="message">
+                            <span class="role">ASSISTANT:</span> It seems like you're referring to "Mayexit." Could you clarify what you mean? Are you asking about:
+
+- A possible exit by Theresa May (the former UK Prime Minister) from office (sometimes called "Mayxit" or "Mayexit")?
+- A different “Mayexit” in another context (like an event or organization)?
+
+Please provide a little more detail so I can help you better!
+                        </div>
+                    </div>
+                    </div>
+                <div class="section">
+                    <div class="section-title">💰 Token Usage</div>
+                    <div class="data-grid">
+                        <div class="data-row">
+                            <div class="data-key">Input Tokens</div>
+                            <div class="data-value"><span class="highlight">195</span></div>
+                        </div>
+                        <div class="data-row">
+                            <div class="data-key">Output Tokens</div>
+                            <div class="data-value"><span class="highlight">83</span></div>
+                        </div>
+                        <div class="data-row">
+                            <div class="data-key">Total</div>
+                            <div class="data-value"><span class="highlight">278</span></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">📋 Additional Attributes</div>
+                    <div class="data-grid">
+                
+                        <div class="data-row">
+                            <div class="data-key">gen_ai.operation.name</div>
+                            <div class="data-value">invoke_agent</div>
+                        </div>
+                    
+                        <div class="data-row">
+                            <div class="data-key">gen_ai.request.choice.count</div>
+                            <div class="data-value">1</div>
+                        </div>
+                    
+                        <div class="data-row">
+                            <div class="data-key">gen_ai.request.model</div>
+                            <div class="data-value">unknown</div>
+                        </div>
+                    
+                        <div class="data-row">
+                            <div class="data-key">gen_ai.tool.definitions</div>
+                            <div class="data-value"><pre>[
+  {
+    "type": "function",
+    "function": {
+      "name": "get_weather",
+      "description": "Get weather for a city.",
+      "parameters": {
+        "properties": {
+          "city": {
+            "title": "City",
+            "type": "string"
+          }
+        },
+        "required": [
+          "city"
+        ],
+        "title": "get_weather_input",
+        "type": "object"
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "calculate",
+      "description": "Calculate a math expression.",
+      "parameters": {
+        "properties": {
+          "expression": {
+            "title": "Expression",
+            "type": "string"
+          }
+        },
+        "required": [
+          "expression"
+        ],
+        "title": "calculate_input",
+        "type": "object"
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "search",
+      "description": "Search a database.",
+      "parameters": {
+        "properties": {
+          "query": {
+            "title": "Query",
+            "type": "string"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "title": "search_input",
+        "type": "object"
+      }
+    }
+  }
+]</pre></div>
+                        </div>
+                    
+                        <div class="data-row">
+                            <div class="data-key">gen_ai.agent.id</div>
+                            <div class="data-value">b6173187-d754-467c-9966-35c7b0e72420</div>
+                        </div>
+                    
+                        <div class="data-row">
+                            <div class="data-key">gen_ai.agent.name</div>
+                            <div class="data-value">b6173187-d754-467c-9966-35c7b0e72420</div>
+                        </div>
+                    
+                    </div>
+                </div>
+                </div>
+    </div>
+    
+    <script>
+        // Add syntax highlighting to JSON
+        document.querySelectorAll('pre').forEach(block => {
+            if (block.textContent.trim().startsWith('{') || block.textContent.trim().startsWith('[')) {
+                try {
+                    const json = JSON.parse(block.textContent);
+                    block.textContent = JSON.stringify(json, null, 2);
+                } catch(e) {}
+            }
+        });
+    </script>
+</body>
+</html>
