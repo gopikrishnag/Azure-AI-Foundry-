@@ -205,3 +205,11 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+/Learning-1/output
+/MCP-WebApp-Integration/UserManagement/.vs
+/MCP-WebApp-Integration/UserManagement/UserManagement/bin/Debug/net9.0
+/MCP-WebApp-Integration/UserManagement/UserManagement/obj
+/MCP-WebApp-Integration/UserManagement/UserManagement.Model/bin/Debug/net9.0
+/MCP-WebApp-Integration/UserManagement/UserManagement.Model/obj
+/MCP-WebApp-Integration/UserManagement/UserManagementConsole/bin/Debug/net9.0
+/MCP-WebApp-Integration/UserManagement/UserManagementConsole/obj
