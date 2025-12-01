@@ -213,3 +213,10 @@ __marimo__/
 /MCP-WebApp-Integration/UserManagement/UserManagement.Model/obj
 /MCP-WebApp-Integration/UserManagement/UserManagementConsole/bin/Debug/net9.0
 /MCP-WebApp-Integration/UserManagement/UserManagementConsole/obj
+/MCP-WebApp-Integration/UserManagement/RemoteMcpFunc/.vscode
+/MCP-WebApp-Integration/UserManagement/UserManagement.Api/bin
+/MCP-WebApp-Integration/UserManagement/UserManagement.Api/obj
+/MCP-WebApp-Integration/UserManagement/UserManagment.Functions/.vscode
+/MCP-WebApp-Integration/UserManagement/UserManagement.Model/bin/Release/net9.0
+/MCP-WebApp-Integration/UserManagement/UserManagement.Api/Properties/PublishProfiles
+/MCP-WebApp-Integration/UserManagement/UserManagement.Api/Properties/ServiceDependencies/UserManagementDemo - Zip Deploy

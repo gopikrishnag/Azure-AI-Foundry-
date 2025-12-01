@@ -1,0 +1,49 @@
+using System;
+
+namespace Mcp.McpTools;
+
+public static class McpToolDefinitions {
+  
+  public static class ReverseMessageTool
+  {
+    public const string Name = "ReverseMessageTool";
+    public const string Description = "Echoes back message in reverse.";
+
+    public static class Param {
+      public const string Name = "Message";
+      public const string Description = "The Message to reverse";
+    }
+  }
+
+  public static class MultiplyNumbersTool {
+    
+    
+        public const string Name = "MultiplyNumbersTool";
+    public const string Description = "A tool that shows paramater usage by asking for two numbers and multiplying them together";
+
+    public static class Param1 {
+      public const string Name = "FirstNumber";
+      public const string Description = "The first number to multiply";
+    }
+
+    public static class Param2 {
+      public const string Name = "SecondNumber";
+      public const string Description = "The second number to multiply";
+    }
+  }
+
+  public static class ZodiacTool {
+    public const string Name = "ZodiacTool";
+    public const string Description = "Returns the zodiac animal associated with the given year.";
+
+    public static class Param {
+      public const string Name = "Year";
+      public const string Description = "The year to get the zodiac animal for";
+    }
+  }
+
+  public static class DataTypes {
+    public const string Number = "number";
+    public const string String = "string";
+  }
+}

@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserManagementService", "Us
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserManagement.Model", "UserManagement.Model\UserManagement.Model.csproj", "{F7703A91-8BEE-4D6F-9DA0-696A40196B8E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserManagment.Functions", "UserManagment.Functions\UserManagment.Functions.csproj", "{11599B15-443D-B8F4-29BB-2C9C0D83D85A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserManagement.Api", "UserManagement.Api\UserManagement.Api.csproj", "{117004E3-8C04-4150-9BFE-4044E326CCA9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{F7703A91-8BEE-4D6F-9DA0-696A40196B8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7703A91-8BEE-4D6F-9DA0-696A40196B8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F7703A91-8BEE-4D6F-9DA0-696A40196B8E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11599B15-443D-B8F4-29BB-2C9C0D83D85A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11599B15-443D-B8F4-29BB-2C9C0D83D85A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11599B15-443D-B8F4-29BB-2C9C0D83D85A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11599B15-443D-B8F4-29BB-2C9C0D83D85A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{117004E3-8C04-4150-9BFE-4044E326CCA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{117004E3-8C04-4150-9BFE-4044E326CCA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{117004E3-8C04-4150-9BFE-4044E326CCA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{117004E3-8C04-4150-9BFE-4044E326CCA9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
