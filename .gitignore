@@ -220,3 +220,11 @@ __marimo__/
 /MCP-WebApp-Integration/UserManagement/UserManagement.Model/bin/Release/net9.0
 /MCP-WebApp-Integration/UserManagement/UserManagement.Api/Properties/PublishProfiles
 /MCP-WebApp-Integration/UserManagement/UserManagement.Api/Properties/ServiceDependencies/UserManagementDemo - Zip Deploy
+/MCP-WebApp-Integration/UserManagement/UserManagement/bin/Release/net9.0
+/MCP-WebApp-Integration/UserManagement/UserManagementApp/bin
+/MCP-WebApp-Integration/UserManagement/UserManagementApp/obj
+/MCP-WebApp-Integration/UserManagement/UserManagementApp/wwwroot
+/MCP-WebApp-Integration/UserManagement/UserManagementApp/appsettings.Development.json
+/MCP-WebApp-Integration/UserManagement/UserManagementApp/appsettings.json
+/MCP-WebApp-Integration/UserManagement/UserManagementApp/Properties/PublishProfiles
+/MCP-WebApp-Integration/UserManagement/UserManagementApp/Properties
