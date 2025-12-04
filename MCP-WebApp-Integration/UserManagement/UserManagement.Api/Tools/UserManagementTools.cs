@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using ModelContextProtocol.Server;
+using UserManagement.Model.Entities;
 
 namespace UserManagement.Api.Tools
 {
@@ -23,6 +24,22 @@ namespace UserManagement.Api.Tools
                 throw;
             }
            
+        }
+
+        [McpServerTool, Description("Gets a list of all users")]
+        public async Task<List<UserAccountEntity>> GetAllUsersAsync()
+        { 
+            try
+            {
+                var userId = await userService.GetAllUserAccountsAsync();
+                return userId;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error in getting users list");
+                throw;
+            }
+
         }
     }
 }

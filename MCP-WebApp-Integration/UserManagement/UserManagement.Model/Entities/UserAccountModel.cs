@@ -2,7 +2,7 @@
 
 namespace UserManagement.Model.Entities
 {
-    public class CreateNewUserAccountModel
+    public class UserAccountModel
     {
         [Required(ErrorMessage = "Full name is required")]
         [Display(Name = "Full Name")]

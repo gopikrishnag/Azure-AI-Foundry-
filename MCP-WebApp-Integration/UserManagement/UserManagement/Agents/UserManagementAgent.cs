@@ -20,7 +20,7 @@ namespace UserManagementService.Agents
             persistentAgentsClient = new PersistentAgentsClient(foundryEndpoint, new Azure.Identity.DefaultAzureCredential());
         }
 
-        public async Task<string> CreateUserAccountAsync(CreateNewUserAccountModel createNewUserAccountModel)
+        public async Task<string> CreateUserAccountAsync(UserAccountModel createNewUserAccountModel)
         {
             string prompt = $"""
 Create a new user account with the following details:
@@ -34,6 +34,17 @@ Password: {createNewUserAccountModel.Password}
 
 
         }
+
+
+
+        public async Task<string> GetAllUsersAsync()
+        {
+            string prompt = "Get a list of all users and make sure you return as raw json and don't add any additional or extra text in the returned text. I have to parse the returned json";
+            string apiResponse = await CallUserManagementApiAsync(prompt);
+            return apiResponse;
+        }
+
+
         //TODO: convert into Async
         private async Task<string> CallUserManagementApiAsync(string prompt)
         {

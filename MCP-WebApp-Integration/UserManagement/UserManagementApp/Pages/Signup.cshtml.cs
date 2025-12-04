@@ -9,7 +9,7 @@ namespace UserManagementApp.Pages
     {
 
         [BindProperty]
-        public CreateNewUserAccountModel UserInput { get; set; } = new();
+        public UserAccountModel UserInput { get; set; } = new();
         private readonly UserManagementAgent userManagementAgent;
 
         public SignUpModel(UserManagementAgent userManagementAgent)

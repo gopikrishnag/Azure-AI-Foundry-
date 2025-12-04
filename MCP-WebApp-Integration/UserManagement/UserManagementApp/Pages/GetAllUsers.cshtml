@@ -1,0 +1,32 @@
+﻿@page
+@model UserManagementApp.Pages.GetAllUsersModel
+
+@if (Model.Users != null && Model.Users.Count > 0)
+{
+    <h2>Registered Users</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(Model => Model.Users[0].FullName)</th> 
+                <th>@Html.DisplayNameFor(Model => Model.Users[0].EmailAddress)</th> 
+                <th>@Html.DisplayNameFor(Model => Model.Users[0].PhoneNumber)</th> 
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model.Users)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(Model => user.FullName)</td>
+                    <td>@Html.DisplayFor(Model => user.EmailAddress)</td>
+                    <td>@Html.DisplayFor(Model => user.PhoneNumber)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h3>No users found.</h3>
+}
+
+ 

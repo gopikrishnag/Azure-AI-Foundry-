@@ -27,5 +27,15 @@ namespace UserManagementServices
             await tableClient.AddEntityAsync(newUserAccount);
             return userId;
         }
+
+        public async Task<List<UserManagement.Model.Entities.UserAccountEntity>> GetAllUserAccountsAsync()
+        {
+            var userAccounts = new List<UserManagement.Model.Entities.UserAccountEntity>();
+            await foreach (var entity in tableClient.QueryAsync<UserManagement.Model.Entities.UserAccountEntity>())
+            {
+                userAccounts.Add(entity);
+            }
+            return userAccounts;
+        }
     }
 }
