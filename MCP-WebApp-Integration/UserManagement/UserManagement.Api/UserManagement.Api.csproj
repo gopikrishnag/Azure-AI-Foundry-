@@ -4,6 +4,7 @@
     <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>5af87c1f-60de-4f1b-8833-644bc7f03baf</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -11,11 +12,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Azure.Data.Tables" Version="12.11.0" />
+    <PackageReference Include="Microsoft.Extensions.Azure" Version="1.13.1" />
     <PackageReference Include="ModelContextProtocol.AspNetCore" Version="0.4.1-preview.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\UserManagement.Model\UserManagement.Model.csproj" />
+    <ProjectReference Include="..\UserManagement\UserManagementService.csproj" />
   </ItemGroup>
 
 </Project>

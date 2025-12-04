@@ -2,7 +2,7 @@
 
 using UserManagement.Model;
 
-namespace UserManagementService;
+namespace UserManagementServices;
 
 public interface ISmartHouseUtilities
 {

@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserManagment.Functions", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserManagement.Api", "UserManagement.Api\UserManagement.Api.csproj", "{117004E3-8C04-4150-9BFE-4044E326CCA9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserManagementApp", "UserManagementApp\UserManagementApp.csproj", "{5D865E31-338E-49C4-A1AA-D2C6158A3921}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{117004E3-8C04-4150-9BFE-4044E326CCA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{117004E3-8C04-4150-9BFE-4044E326CCA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{117004E3-8C04-4150-9BFE-4044E326CCA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D865E31-338E-49C4-A1AA-D2C6158A3921}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D865E31-338E-49C4-A1AA-D2C6158A3921}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D865E31-338E-49C4-A1AA-D2C6158A3921}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D865E31-338E-49C4-A1AA-D2C6158A3921}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

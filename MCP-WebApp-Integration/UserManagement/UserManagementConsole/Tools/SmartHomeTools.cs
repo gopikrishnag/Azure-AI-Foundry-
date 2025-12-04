@@ -7,8 +7,8 @@ namespace UserManagementConsole.Tools
     [McpServerToolType]
     public class SmartHomeTools
     {
-        private readonly UserManagementService.ISmartHouseUtilities _smartHouseUtilities;
-        public SmartHomeTools(UserManagementService.ISmartHouseUtilities smartHouseUtilities)
+        private readonly UserManagementServices.ISmartHouseUtilities _smartHouseUtilities;
+        public SmartHomeTools(UserManagementServices.ISmartHouseUtilities smartHouseUtilities)
         {
             _smartHouseUtilities = smartHouseUtilities;
         }
