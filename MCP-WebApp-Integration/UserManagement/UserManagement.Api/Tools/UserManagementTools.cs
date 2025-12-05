@@ -23,12 +23,12 @@ namespace UserManagement.Api.Tools
                 logger.LogError(ex, "Error creating new user account");
                 throw;
             }
-           
+
         }
 
         [McpServerTool, Description("Gets a list of all users")]
         public async Task<List<UserAccountEntity>> GetAllUsersAsync()
-        { 
+        {
             try
             {
                 var userId = await userService.GetAllUserAccountsAsync();
@@ -37,6 +37,24 @@ namespace UserManagement.Api.Tools
             catch (Exception ex)
             {
                 logger.LogError(ex, "Error in getting users list");
+                throw;
+            }
+
+        }
+
+        [McpServerTool, Description("Gets a single  user or perform user sign-in")]
+        public async Task<UserAccountEntity> GetUserAsync(
+            [Description("Email address for the new account")] string emailAddress,
+            [Description("Password for the new account")] string password)
+        {
+            try
+            {
+                var user = await userService.GetUserAsync(emailAddress, password);
+                return user;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error in getting user");
                 throw;
             }
 

@@ -1,0 +1,33 @@
+﻿@page
+@model UserManagementApp.Pages.SignInModel
+@{                
+    <h2>User Sign In</h2>
+    @if(!string.IsNullOrEmpty(Model.SuccessMessage))
+    {
+        <div class="alert alert-info">@Model.SuccessMessage</div>
+    }
+    if(!string.IsNullOrEmpty(Model.ErrorMessage))
+    {
+        <div class="alert alert-danger">@Model.ErrorMessage</div>
+    }
+ 
+    <form method="post">
+       
+        <div class="mb-3">
+            <label asp-for="UserSignIn.EmailAddress" class="form-label"></label>
+            <input asp-for="UserSignIn.EmailAddress" class="form-control" />
+            <span asp-validation-for="UserSignIn.EmailAddress" class="text-danger"></span>
+        </div>
+        
+        <div class="mb-3">
+            <label asp-for="UserSignIn.Password" class="form-label"></label>
+            <input asp-for="UserSignIn.Password" class="form-control" />
+            <span asp-validation-for="UserSignIn.Password" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Sign In</button>
+    </form>
+}
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -44,6 +44,13 @@ Password: {createNewUserAccountModel.Password}
             return apiResponse;
         }
 
+        public async Task<string> GetUserAsync(string email, string password)
+        {
+            string prompt = $"Get a single user based on provide information email address - {email} and password - {password} and make sure you return as raw json and don't add any additional or extra text in the returned text. I have to parse the returned json";
+            string apiResponse = await CallUserManagementApiAsync(prompt);
+            return apiResponse;
+        }
+
 
         //TODO: convert into Async
         private async Task<string> CallUserManagementApiAsync(string prompt)

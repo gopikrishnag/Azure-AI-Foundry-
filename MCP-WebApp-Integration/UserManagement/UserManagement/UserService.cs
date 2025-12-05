@@ -37,5 +37,15 @@ namespace UserManagementServices
             }
             return userAccounts;
         }
+
+        public async Task<UserManagement.Model.Entities.UserAccountEntity> GetUserAsync(string email, string password)
+        {
+            var encreptedPassword = Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(password));
+            await foreach (var entity in tableClient.QueryAsync<UserManagement.Model.Entities.UserAccountEntity>(filter: entity => entity.EmailAddress == email && entity.password == encreptedPassword))
+            {
+                return entity;
+            }
+            return null;
+        }
     }
 }
