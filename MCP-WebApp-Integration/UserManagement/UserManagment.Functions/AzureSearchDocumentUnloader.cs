@@ -10,9 +10,9 @@ namespace UserManagment.Functions
     public class AzureSearchDocumentUnloader
     {
         private readonly ILogger<AzureSearchDocumentUnloader> _logger;
-        private readonly DocumentService _documentService;
+        private readonly StorageAccountBlobService _documentService;
 
-        public AzureSearchDocumentUnloader(ILogger<AzureSearchDocumentUnloader> logger, DocumentService documentService)
+        public AzureSearchDocumentUnloader(ILogger<AzureSearchDocumentUnloader> logger, StorageAccountBlobService documentService)
         {
             _logger = logger;
             _documentService = documentService;

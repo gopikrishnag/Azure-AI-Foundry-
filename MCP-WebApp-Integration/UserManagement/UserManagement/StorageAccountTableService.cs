@@ -2,9 +2,9 @@
 
 using Azure.Data.Tables;
 
-namespace UserManagementServices
+namespace StorageAccountTableService
 {
-    public class UserService(TableClient tableClient)
+    public class StorageAccountTableService(TableClient tableClient)
     {
         public async Task<string> CreateNewUserAccount(
             string fullName,

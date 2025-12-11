@@ -2,7 +2,7 @@
 
 using UserManagement.Model;
 
-namespace UserManagementServices;
+namespace StorageAccountTableService;
 
 public interface ISmartHouseUtilities
 {

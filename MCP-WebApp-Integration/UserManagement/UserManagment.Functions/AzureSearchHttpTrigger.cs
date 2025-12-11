@@ -14,9 +14,9 @@ namespace UserManagment.Functions
     {
         private readonly ILogger<AzureSearchHttpTrigger> _logger;
 
-        private readonly DocumentService _documentService;
+        private readonly StorageAccountBlobService _documentService;
 
-        public AzureSearchHttpTrigger(ILogger<AzureSearchHttpTrigger> logger, DocumentService documentService)
+        public AzureSearchHttpTrigger(ILogger<AzureSearchHttpTrigger> logger, StorageAccountBlobService documentService)
         {
             _logger = logger;
             _documentService = documentService;

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using Microsoft.Extensions.Logging;
 using ModelContextProtocol.Server;
-using UserManagementServices;
+using StorageAccountTableService;
 
 
 namespace UserManagement.Api.Tools

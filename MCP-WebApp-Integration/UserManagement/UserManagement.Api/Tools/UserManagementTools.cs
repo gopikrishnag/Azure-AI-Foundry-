@@ -4,7 +4,7 @@ using UserManagement.Model.Entities;
 
 namespace UserManagement.Api.Tools
 {
-    public class UserManagementTools(ILogger<UserManagementTools> logger, UserManagementServices.UserService userService)
+    public class UserManagementTools(ILogger<UserManagementTools> logger, StorageAccountTableService.StorageAccountTableService userService)
     {
         [McpServerTool, Description("Create a new user account")]
         public async Task<string> CreateNewUserAccount(

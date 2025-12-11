@@ -11,14 +11,14 @@ using OpenAI.Embeddings;
 using UserManagement.Model.Entities;
 namespace UserManagementService
 {
-    public class DocumentService
+    public class StorageAccountBlobService
     {
         private string storageAccountConnectionString;
         private string searchEndPoint;
         private string searchKey;
         private readonly EmbeddingClient embeddingClient;
         private readonly SearchClient searchClient;
-        public DocumentService(IConfiguration configuration)
+        public StorageAccountBlobService(IConfiguration configuration)
         {
             storageAccountConnectionString = configuration["AzureWebBlobStorage"];
             var client = new OpenAIClient(new Azure.AzureKeyCredential(configuration["AZURE_OPEN_API_KEY"])
