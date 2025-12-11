@@ -1,4 +1,5 @@
 using Microsoft.Extensions.Azure;
+using UserManagementService;
 
 namespace UserManagement.Api
 {
@@ -9,10 +10,15 @@ namespace UserManagement.Api
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            builder.Services.AddSingleton<UserManagementServices.UserService>();
+            builder.Services.AddSingleton<DocumentService>();
+
+            builder.Services.AddMcpServer().WithHttpTransport().WithTools<Tools.AzureSearchTools>();
             builder.Services.AddMcpServer().WithHttpTransport().WithTools<Tools.WeatherAlertsTool>();
             builder.Services.AddMcpServer().WithHttpTransport().WithTools<Tools.UserManagementTools>();
+           
 
-            builder.Services.AddSingleton<UserManagementServices.UserService>();
+            
 
             builder.Services.AddHttpClient("WeatherApi", client =>
             {
