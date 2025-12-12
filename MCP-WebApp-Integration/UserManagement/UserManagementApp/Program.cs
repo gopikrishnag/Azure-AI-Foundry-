@@ -1,16 +1,50 @@
+using Azure.AI.Agents.Persistent;
+using UserManagementService;
 using UserManagementService.Agents;
 
 namespace UserManagementApp
 {
     public class Program
     {
+        static string GetConfigurationValue(WebApplicationBuilder webApplicationBuilder, string key)
+        {
+            var configurationValue = webApplicationBuilder.Configuration[key];
+            if (string.IsNullOrEmpty(configurationValue))
+                return Environment.GetEnvironmentVariable(key) ?? throw new InvalidOperationException($"Configuration key '{key}' not found in environment variables.");
+            return configurationValue;
+        }
+
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
             builder.Services.AddRazorPages();
-            builder.Services.AddSingleton<UserManagementAgent>();
+            //builder.Services.AddSingleton<UserManagementAgent>();
+            //builder.Services.AddSingleton<InsuranceClaimAgent>();
+
+            builder.Services.AddSingleton(serviceProvider =>
+            {
+                var foundryEndpoint = GetConfigurationValue(builder, "AZURE_FOUNDRY_ENDPOINT");
+                var agentId = GetConfigurationValue(builder, "USER_MANAGEMENT_AGENT_ID");
+                var client = serviceProvider.GetRequiredService<PersistentAgentsClient>();
+                return new UserManagementAgent(client, agentId);
+            });
+
+            builder.Services.AddSingleton(serviceProvider =>
+            {
+                var foundryEndpoint = GetConfigurationValue(builder, "AZURE_FOUNDRY_ENDPOINT");
+                var agentId = GetConfigurationValue(builder, "INSURANCE_CLAIM_AGENT_ID");
+                var client = serviceProvider.GetRequiredService<PersistentAgentsClient>();
+                return new InsuranceClaimAgent(client, agentId);
+            });
+
+            builder.Services.AddSingleton(serviceProvider =>
+            {
+                var foundryEndpoint = GetConfigurationValue(builder, "AZURE_FOUNDRY_ENDPOINT");
+                return new  PersistentAgentsClient(foundryEndpoint, new Azure.Identity.DefaultAzureCredential());
+            });
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

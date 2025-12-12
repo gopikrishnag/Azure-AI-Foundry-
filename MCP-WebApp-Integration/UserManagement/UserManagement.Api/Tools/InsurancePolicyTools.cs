@@ -2,11 +2,13 @@
 using Microsoft.Extensions.Logging;
 using ModelContextProtocol.Server;
 using StorageAccountTableService;
+using UserManagement.Model.Entities;
+using UserManagementService;
 
 
 namespace UserManagement.Api.Tools
 {
-    public class InsurancePolicyTools
+    public class InsurancePolicyTools(ILogger<InsurancePolicyTools> logger, StorageAccountBlobService storageAccountBlobService )
     {
         [McpServerTool, Description("Create a new insurance policy")]
         public async Task<string> CreateNewInsurancePolicy(
@@ -19,12 +21,25 @@ namespace UserManagement.Api.Tools
         {
             try
             {
-               // var userId = await userService.CreateNewUserAccount(fullName, emailAddress, phoneNumber, password);
-                return "userId";
+
+              await storageAccountBlobService.UploadDocuments(new List<AzureSearchDocument>()
+                {
+                    new()
+                    {
+                        Id=Guid.NewGuid().ToString(),
+                        Content=content,
+                        Insurer=insurer,
+                        Title=title,
+                        Tags=tags.Split(',').Select(t=>t.Trim()).ToArray(),
+                        PremiumAmount=premiumAmount,
+                        IsActive=isActive
+                    }
+                });
+                return   $"New insurance policy created for  {title} by {insurer}";
             }
             catch (Exception ex)
             {
-               // logger.LogError(ex, "Error creating new user account");
+                logger.LogError(ex, "Error creating new Insurance record");
                 throw;
             }
 
